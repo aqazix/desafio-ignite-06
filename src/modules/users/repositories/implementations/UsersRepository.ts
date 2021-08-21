@@ -15,14 +15,8 @@ export class UsersRepository implements IUsersRepository {
     user_id,
   }: IFindUserWithGamesDTO): Promise<User> {
     const result = await this.repository.findOneOrFail(user_id, {
-      join: {
-        innerJoinAndSelect: {
-          games: "users.games"
-        },
-        alias: "users"
-      }
+      relations: ["games"]
     })
-    console.log(result)
     return result
   }
 
